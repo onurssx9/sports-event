@@ -45,12 +45,10 @@ export function* subscribe(socket) {
 }
 
 export default function* start() {
-  while (true) {
-    yield take(START_CONNECTION);
-    const socket = yield call(connect);
-    yield fork(read, socket);
-    yield fork(switchFilterWatcher);
-  }
+  yield take(START_CONNECTION);
+  const socket = yield call(connect);
+  yield fork(read, socket);
+  yield fork(switchFilterWatcher);
 }
 
 function* switchFilterWatcher() {
