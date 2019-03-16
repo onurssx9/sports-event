@@ -22,6 +22,20 @@ import App from 'containers/App';
 // Import Language Provider
 import LanguageProvider from 'containers/LanguageProvider';
 
+// Import Theme Provider
+import { ThemeProvider } from 'styled-components';
+
+// Import FontAwesome
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+  faRunning,
+  faFilter,
+  faSearch,
+} from '@fortawesome/free-solid-svg-icons';
+
+// Import Theme
+import theme from './theme';
+
 // Load the favicon and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
 import '!file-loader?name=[name].[ext]!./images/favicon.ico';
@@ -33,6 +47,9 @@ import configureStore from './configureStore';
 // Import i18n messages
 import { translationMessages } from './i18n';
 
+// Add icons to library
+library.add([faRunning, faFilter, faSearch]);
+
 // Create redux store with history
 const initialState = {};
 const store = configureStore(initialState, history);
@@ -43,7 +60,9 @@ const render = messages => {
     <Provider store={store}>
       <LanguageProvider messages={messages}>
         <ConnectedRouter history={history}>
-          <App />
+          <ThemeProvider theme={theme}>
+            <App />
+          </ThemeProvider>
         </ConnectedRouter>
       </LanguageProvider>
     </Provider>,

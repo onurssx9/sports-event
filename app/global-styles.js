@@ -3,8 +3,9 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle`
   html,
   body {
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
   }
 
   body {
@@ -17,14 +18,27 @@ const GlobalStyle = createGlobalStyle`
 
   #app {
     background-color: #fafafa;
-    min-height: 100%;
-    min-width: 100%;
+    min-height: 100vh;
+    min-width: 100vw;
   }
 
   p,
   label {
     font-family: Georgia, Times, 'Times New Roman', serif;
     line-height: 1.5em;
+  }
+
+  div::-webkit-scrollbar-track {
+    background-color: #fafafa;
+  }
+
+  div::-webkit-scrollbar {
+    width: 5px;
+    background-color: #eaeaea;
+  }
+
+  div::-webkit-scrollbar-thumb {
+    background-color: #eaeaea;  
   }
 `;
 

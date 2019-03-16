@@ -1,0 +1,5 @@
+{
+  "app.containers.Home.header": "Võistlusteave",
+  "app.containers.Home.description": "Võid siin sportlasi jälgida reaalajas!",
+  "app.components.Sidebar.header": "Jälgija"
+}
