@@ -6,13 +6,17 @@
 ```
 git clone https://github.com/onurssx9/sports-event.git
 ```
-2. Run the application  
+2. Install dependencies  
+```
+npm install
+```
+3. Run the application  
 _Note: Application will be hosted on localhost:3000_
 ```
 npm start
 ```
-3. Setup and run the server provided
-4. Execute following command in venv to emulate real-time data to feed the application.
+4. Setup and run the server provided
+5. Execute following command in venv to emulate real-time data to feed the application.
 ```
 python emulator.py --mu=40 --sigma=20
 ```
