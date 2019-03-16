@@ -1,5 +1,5 @@
 # Info
-  I've completed this application in around 7-9 hours. Most challanging part was setting up the server provided, I spent almost 1 hour to make it up and running. Rest of my time was spent on constructing the structure of application, connecting it to the server via socket.io using saga and iterating the frond-end over and over.
+  I've completed this application in around 7-9 hours. Most challenging part was setting up the server provided, I spent almost 1 hour to make it up and running. Rest of my time was spent on constructing the structure of application, connecting it to the server via socket.io using saga and iterating the frond-end over and over.
   Hope you like it! Cheers.
 # Getting Started
 1. Clone the repository
