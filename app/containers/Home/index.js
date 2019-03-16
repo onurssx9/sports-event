@@ -15,6 +15,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SearchBar from 'components/SearchBar';
+import LanguageSwitch from 'components/LanguageSwitch';
 import { selectRaceData, selectFilter, selectSearch } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -31,6 +32,8 @@ import {
   Filter,
 } from './styles';
 import { startConnection, switchFilter, setSearch } from './actions';
+import { changeLocale } from '../LanguageProvider/actions';
+import { makeSelectLocale } from '../LanguageProvider/selectors';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Home extends React.PureComponent {
@@ -71,6 +74,10 @@ export class Home extends React.PureComponent {
   render() {
     return (
       <Container>
+        <LanguageSwitch
+          onClick={() => this.props.onLanguageSwitch(this.props.locale)}
+          locale={this.props.locale}
+        />
         <Title>
           <FormattedMessage {...messages.header} />
         </Title>
@@ -93,6 +100,8 @@ Home.propTypes = {
   connect: PropTypes.func.isRequired,
   raceData: PropTypes.array.isRequired,
   onFilter: PropTypes.func.isRequired,
+  onLanguageSwitch: PropTypes.func.isRequired,
+  locale: PropTypes.string.isRequired,
   filter: PropTypes.string,
   search: PropTypes.string,
 };
@@ -101,6 +110,7 @@ const mapStateToProps = createStructuredSelector({
   raceData: selectRaceData(),
   filter: selectFilter(),
   search: selectSearch(),
+  locale: makeSelectLocale(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -108,6 +118,10 @@ function mapDispatchToProps(dispatch) {
     connect: () => dispatch(startConnection()),
     onFilter: () => dispatch(switchFilter()),
     onSearch: event => dispatch(setSearch(event.target.value)),
+    onLanguageSwitch: locale =>
+      locale === 'en'
+        ? dispatch(changeLocale('et'))
+        : dispatch(changeLocale('en')),
   };
 }
 

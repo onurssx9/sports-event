@@ -1,4 +1,5 @@
 {
-  "app.containers.HomePage.header": "This is the HomePage container!",
-  "app.containers.NotFoundPage.header": "This is the NotFoundPage container!"
+  "app.containers.Home.header": "Race Information",
+  "app.containers.Home.description": "You can track athletes here, in real-time!",
+  "app.components.Sidebar.header": "The Tracker"
 }
