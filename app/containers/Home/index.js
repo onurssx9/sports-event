@@ -13,7 +13,9 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import selectRaceData from './selectors';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import SearchBar from 'components/SearchBar';
+import { selectRaceData, selectFilter, selectSearch } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -25,8 +27,10 @@ import {
   AthleteCard,
   AthleteNumber,
   AthleteName,
+  FiltersWrapper,
+  Filter,
 } from './styles';
-import { startConnection } from './actions';
+import { startConnection, switchFilter, setSearch } from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Home extends React.PureComponent {
@@ -34,8 +38,25 @@ export class Home extends React.PureComponent {
     this.props.connect();
   };
 
-  getAthleteCards = () =>
-    this.props.raceData.map(athlete => (
+  filterByPosition = data =>
+    data.filter(
+      athlete => athlete.position.indexOf(this.props.filter) > -1 && athlete,
+    );
+
+  filterByName = data =>
+    data.filter(
+      athlete => athlete.name.indexOf(this.props.search) === 0 && athlete,
+    );
+
+  getAthleteCards = () => {
+    const athletesFilteredByPosition = this.filterByPosition(
+      this.props.raceData,
+    );
+    const athletesFilteredByName = this.filterByName(
+      athletesFilteredByPosition,
+    );
+
+    return athletesFilteredByName.map(athlete => (
       <AthleteCard
         position={athlete.position}
         time={athlete.time}
@@ -45,6 +66,7 @@ export class Home extends React.PureComponent {
         <AthleteName>{athlete.name}</AthleteName>
       </AthleteCard>
     ));
+  };
 
   render() {
     return (
@@ -55,6 +77,12 @@ export class Home extends React.PureComponent {
         <Description>
           <FormattedMessage {...messages.description} />
         </Description>
+        <FiltersWrapper>
+          <Filter onClick={this.props.onFilter} filter={this.props.filter}>
+            <FontAwesomeIcon icon="filter" />
+          </Filter>
+          <SearchBar onChange={event => this.props.onSearch(event)} />
+        </FiltersWrapper>
         <RaceInformation>{this.getAthleteCards()}</RaceInformation>
       </Container>
     );
@@ -64,15 +92,22 @@ export class Home extends React.PureComponent {
 Home.propTypes = {
   connect: PropTypes.func.isRequired,
   raceData: PropTypes.array.isRequired,
+  onFilter: PropTypes.func.isRequired,
+  filter: PropTypes.string,
+  search: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
   raceData: selectRaceData(),
+  filter: selectFilter(),
+  search: selectSearch(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     connect: () => dispatch(startConnection()),
+    onFilter: () => dispatch(switchFilter()),
+    onSearch: event => dispatch(setSearch(event.target.value)),
   };
 }
 

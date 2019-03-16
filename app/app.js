@@ -27,7 +27,11 @@ import { ThemeProvider } from 'styled-components';
 
 // Import FontAwesome
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faRunning } from '@fortawesome/free-solid-svg-icons';
+import {
+  faRunning,
+  faFilter,
+  faSearch,
+} from '@fortawesome/free-solid-svg-icons';
 
 // Import Theme
 import theme from './theme';
@@ -44,7 +48,7 @@ import configureStore from './configureStore';
 import { translationMessages } from './i18n';
 
 // Add icons to library
-library.add([faRunning]);
+library.add([faRunning, faFilter, faSearch]);
 
 // Create redux store with history
 const initialState = {};

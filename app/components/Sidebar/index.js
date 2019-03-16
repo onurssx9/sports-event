@@ -12,18 +12,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import messages from './messages';
 import { Wrapper, Logo, Brand } from './styles';
 
-function Sidebar() {
-  return (
-    <Wrapper>
-      <Logo>
-        <FontAwesomeIcon icon="running" />
-      </Logo>
-      <Brand>
-        <FormattedMessage {...messages.header} />
-      </Brand>
-    </Wrapper>
-  );
-}
+const Sidebar = () => (
+  <Wrapper>
+    <Logo>
+      <FontAwesomeIcon icon="running" />
+    </Logo>
+    <Brand>
+      <FormattedMessage {...messages.header} />
+    </Brand>
+  </Wrapper>
+);
 
 Sidebar.propTypes = {};
 
